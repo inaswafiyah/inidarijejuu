@@ -1182,8 +1182,93 @@ body {
     linear-gradient(135deg, #dbe8fa, #8fb0e6);
 }
 
+.paket-foto .foto-klik {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.paket-foto .foto-klik:hover {
+  z-index: 1;
+  transform: scale(1.025);
+  box-shadow: 0 8px 18px rgba(20, 38, 74, .22);
+}
+
+.paket-foto .foto-klik:focus-visible {
+  outline: 3px solid #3a63ad;
+  outline-offset: 3px;
+}
+
 .paket-foto .foto:last-child {
   aspect-ratio: 1;
+}
+
+.foto-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(94vw, 900px);
+  max-width: none;
+  max-height: 94vh;
+  padding: 14px;
+  overflow: visible;
+  color: #f6faff;
+  background: #14264a;
+  border: 1px solid rgba(255, 255, 255, .75);
+  border-radius: 12px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45);
+  translate: -50% -50%;
+}
+
+.foto-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.foto-dialog::backdrop {
+  background: rgba(8, 15, 30, .82);
+  backdrop-filter: blur(5px);
+}
+
+.foto-dialog img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(94vh - 56px);
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.foto-dialog p {
+  font-family: var(--font-isi);
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.foto-dialog-tutup {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: #14264a;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: #f6faff;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.foto-dialog-tutup:focus-visible {
+  outline: 3px solid #7ea6e4;
+  outline-offset: 2px;
 }
 
 /* ---------- Lagu ---------- */
@@ -1368,6 +1453,263 @@ body {
 .musik-status {
   color: var(--paket-pudar);
   font-size: .7rem;
+}
+
+.player-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(88vw, 360px);
+  max-width: none;
+  max-height: 94vh;
+  padding: 22px 22px 18px;
+  overflow-y: auto;
+  color: #f7f9fd;
+  background: linear-gradient(155deg, #707887, #394456 72%);
+  border: 1px solid rgba(255, 255, 255, .36);
+  border-radius: 27px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .2);
+  translate: -50% -50%;
+}
+
+.player-dialog[open] {
+  display: grid;
+  gap: 0;
+  animation: player-muncul .32s cubic-bezier(.2, 1.1, .3, 1) both;
+}
+
+.player-dialog::backdrop {
+  background: rgba(8, 15, 30, .76);
+  backdrop-filter: blur(7px);
+}
+
+@keyframes player-muncul {
+  from { opacity: 0; scale: .94; }
+  to { opacity: 1; scale: 1; }
+}
+
+.player-close {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  z-index: 1;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  color: #ffffff;
+  font-size: 1.35rem;
+  line-height: 1;
+  background: rgba(18, 30, 50, .42);
+  border: 1px solid rgba(255, 255, 255, .24);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.player-close:focus-visible,
+.player-controls button:focus-visible,
+.player-repeat:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.player-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: linear-gradient(135deg, #90a9cc, #3e526f);
+  border-radius: 12px;
+  box-shadow: 0 13px 28px rgba(8, 15, 30, .28);
+}
+
+.player-track-info {
+  min-width: 0;
+  margin: 18px 2px 10px;
+}
+
+.player-kicker {
+  margin-bottom: 4px;
+  font-family: var(--font-isi);
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  opacity: .68;
+}
+
+.player-track-info h2 {
+  overflow-wrap: anywhere;
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+.player-track-info > p:last-child {
+  margin-top: 3px;
+  font-family: var(--font-isi);
+  font-size: .76rem;
+  opacity: .78;
+}
+
+.player-timeline {
+  margin-top: 4px;
+}
+
+.player-progress,
+.player-volume input {
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin: 0;
+  accent-color: #ffffff;
+  cursor: pointer;
+}
+
+.player-progress {
+  appearance: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .32);
+}
+
+.player-progress::-webkit-slider-thumb,
+.player-volume input::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  appearance: none;
+  background: #ffffff;
+  border: 0;
+  border-radius: 50%;
+}
+
+.player-progress::-moz-range-thumb,
+.player-volume input::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border: 0;
+  border-radius: 50%;
+}
+
+.player-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: var(--font-isi);
+  font-size: .63rem;
+  font-variant-numeric: tabular-nums;
+  opacity: .78;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin: 16px 0 18px;
+}
+
+.player-controls button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.player-skip {
+  width: 38px;
+  height: 42px;
+  opacity: .92;
+}
+
+.player-skip svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+
+.player-toggle {
+  width: 58px;
+  height: 58px;
+  color: #344154 !important;
+  background: #f7f9fd !important;
+  border-radius: 50% !important;
+  box-shadow: 0 6px 16px rgba(8, 15, 30, .2);
+  transition: transform .16s ease;
+}
+
+.player-toggle:hover {
+  transform: scale(1.06);
+}
+
+.player-toggle svg {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+}
+
+.player-icon-pause {
+  display: none;
+}
+
+.player-dialog.is-playing .player-icon-play {
+  display: none;
+}
+
+.player-dialog.is-playing .player-icon-pause {
+  display: block;
+}
+
+.player-volume {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-volume svg {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+  opacity: .82;
+}
+
+.player-volume input {
+  flex: 1;
+  accent-color: #ffffff;
+}
+
+.player-repeat {
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  gap: 7px;
+  margin-top: 15px;
+  padding: 6px 10px;
+  color: rgba(255, 255, 255, .72);
+  font-family: var(--font-isi);
+  font-size: .65rem;
+  font-weight: 800;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.player-repeat svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.player-repeat.aktif {
+  color: #ffffff;
+  background: rgba(255, 255, 255, .12);
 }
 
 /* ---------- Peta kenangan ---------- */

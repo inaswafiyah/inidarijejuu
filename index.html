@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Little Love Goodie</title>
+  <meta name="theme-color" content="#9cc2f0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Caveat+Brush&family=Nunito:wght@600;800&family=Space+Mono:wght@400;700&family=Lora:ital,wght@0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Pemicu buka folder (tanpa JavaScript) -->
+  <input type="checkbox" id="buka" class="pemicu" aria-label="Buka folder">
+
+  <div class="langit"></div>
+  <div class="kisi-kisi"></div>
+
+  <main class="panggung">
+    <div class="folder">
+
+      <!-- Tab warna di sisi kanan -->
+      <i class="tab tab-1"></i>
+      <i class="tab tab-2"></i>
+      <i class="tab tab-3"></i>
+
+      <!-- Sampul folder -->
+      <div class="sampul">
+        <div class="muka depan">
+          <i class="lubang lubang-1"></i>
+          <i class="lubang lubang-2"></i>
+          <i class="lubang lubang-3"></i>
+
+          <div class="hati"></div>
+
+          <h2 class="judul">
+            <span class="kata kata-little">Little</span>
+            <span class="kata kata-love">Love</span>
+          </h2>
+
+          <span class="goodie">Goodie</span>
+
+          <i class="bintang bintang-pink"></i>
+          <i class="bintang bintang-kuning"></i>
+
+          <label for="buka" class="tombol">Wait to see</label>
+        </div>
+        <div class="muka belakang"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Animasi bunga mekar setelah tombol diklik -->
+  <div class="bunga" aria-hidden="true">
+    <i class="kembang mawar"  style="--x:15%; --y:12%; --s:42vmax; --d:.1s;  --h:0deg"></i>
+    <i class="kembang anemon" style="--x:82%; --y:8%;  --s:36vmax; --d:.3s;  --h:25deg"></i>
+    <i class="kembang aster"  style="--x:48%; --y:22%; --s:40vmax; --d:.5s;  --h:0deg"></i>
+    <i class="kembang mawar"  style="--x:12%; --y:38%; --s:46vmax; --d:.7s;  --h:-20deg"></i>
+    <i class="kembang mawar"  style="--x:86%; --y:36%; --s:44vmax; --d:.9s;  --h:12deg"></i>
+    <i class="kembang anemon" style="--x:50%; --y:48%; --s:38vmax; --d:1.1s; --h:20deg"></i>
+    <i class="kembang aster"  style="--x:18%; --y:64%; --s:40vmax; --d:1.3s; --h:0deg"></i>
+    <i class="kembang mawar"  style="--x:82%; --y:62%; --s:46vmax; --d:1.5s; --h:-15deg"></i>
+    <i class="kembang mawar"  style="--x:45%; --y:76%; --s:44vmax; --d:1.7s; --h:15deg"></i>
+    <i class="kembang anemon" style="--x:12%; --y:90%; --s:38vmax; --d:1.9s; --h:25deg"></i>
+    <i class="kembang aster"  style="--x:86%; --y:90%; --s:40vmax; --d:2.1s; --h:0deg"></i>
+    <i class="kembang mawar"  style="--x:50%; --y:98%; --s:36vmax; --d:2.3s; --h:-10deg"></i>
+  </div>
+
+  <!-- Halaman kolam (muncul setelah animasi bunga selesai) -->
+  <section class="kolam" aria-label="Kolam Tenang">
+      <div class="layar-kolam">
+      <div class="air"></div>
+
+      <div class="ikan-wadah" aria-hidden="true">
+        <span class="ikan kanan" style="--y:16%; --w:18s; --d:-3s;  --u:3.4rem">🐠</span>
+        <span class="ikan kiri"  style="--y:30%; --w:22s; --d:-9s;  --u:2.6rem">🐟</span>
+        <span class="ikan kanan" style="--y:52%; --w:26s; --d:-15s; --u:3rem">🐡</span>
+        <span class="ikan kiri"  style="--y:66%; --w:20s; --d:-6s;  --u:2.2rem">🐠</span>
+        <span class="ikan kanan" style="--y:78%; --w:24s; --d:-18s; --u:3.2rem">🐟</span>
+        <span class="ikan kiri"  style="--y:44%; --w:28s; --d:-12s; --u:2.4rem">🐟</span>
+      </div>
+
+      <header class="kepala">
+        <p class="kepala-kecil">Shared pool</p>
+        <h1 class="kepala-judul">A Still Pond</h1>
+        <p class="kepala-untuk">For you,<br>From Jejuu</p>
+      </header>
+
+      <input type="radio" name="tab" id="tab-kolam" class="tab-radio" checked>
+      <input type="radio" name="tab" id="tab-surat" class="tab-radio">
+      <input type="radio" name="tab" id="tab-foto" class="tab-radio">
+      <input type="radio" name="tab" id="tab-buket" class="tab-radio">
+      <input type="radio" name="tab" id="tab-kenangan" class="tab-radio">
+      <input type="radio" name="tab" id="tab-pertanyaan" class="tab-radio">
+
+     
+      <!-- Kolam: foto melayang + catatan -->
+      <div class="panel panel-kolam">
+        <!-- Ganti alamat foto di bawah dengan fotomu sendiri -->
+        <div class="gelembung" style="--foto:url('assets/image/image1.jpeg'); --dia:96px; --kiri:14%; --atas:12%; --t:0s"></div>
+        <div class="gelembung" style="--foto:url('assets/image/image2.jpeg'); --dia:84px; --kiri:56%; --atas:30%; --t:-2s"></div>
+        <div class="gelembung" style="--foto:url('assets/image/image3.jpeg'); --dia:78px; --kiri:6%;  --atas:40%; --t:-4s"></div>
+        <div class="gelembung" style="--foto:url('assets/image/image4.jpeg'); --dia:70px; --kiri:26%; --atas:58%; --t:-1s"></div>
+        <div class="gelembung" style="--foto:url('assets/image/image5.jpeg'); --dia:90px; --kiri:68%; --atas:6%;  --t:-3s"></div>
+
+        <div class="catatan">
+          <p class="catatan-label">Notes</p>
+          <p>Happy birthday. This collection contains letters, photos, and a few memories for you. Open them one by one—there’s no need to rush.</p>
+          <p class="catatan-tanda">From: Jejuu</p>
+        </div>
+      </div>
+
+      <div class="panel panel-foto">
+        <div class="kartu kisi-foto">
+          <div class="gelembung" style="--foto:url('foto/foto-1.jpg')"></div>
+          <div class="gelembung" style="--foto:url('foto/foto-2.jpg')"></div>
+          <div class="gelembung" style="--foto:url('foto/foto-3.jpg')"></div>
+          <div class="gelembung" style="--foto:url('foto/foto-4.jpg')"></div>
+          <div class="gelembung" style="--foto:url('foto/foto-5.jpg')"></div>
+          <div class="gelembung" style="--foto:url('foto/foto-6.jpg')"></div>
+        </div>
+      </div>
+
+      <div class="panel panel-buket">
+        <div class="kartu buket">
+          <div class="buket-bunga">
+            <i class="kembang mawar"  style="--h:0deg"></i>
+            <i class="kembang anemon" style="--h:20deg"></i>
+            <i class="kembang aster"  style="--h:0deg"></i>
+          </div>
+          <p>Buket kecil untukmu.</p>
+        </div>
+      </div>
+
+      <div class="panel panel-kenangan">
+        <article class="kartu">
+          <h2>Kenangan</h2>
+          <ul>
+            <li>Lagu favorit kita</li>
+            <li>Catatan suara</li>
+            <li>Video singkat</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="panel panel-pertanyaan">
+        <article class="kartu">
+          <h2>Pertanyaan</h2>
+          <ul>
+            <li>Apa hal yang paling kamu ingat dari tahun ini?</li>
+            <li>Apa yang ingin kamu lakukan di usia yang baru?</li>
+            <li>Kalau bisa mengulang satu hari, hari yang mana?</li>
+          </ul>
+        </article>
+      </div>
+      </div>
+
+      <!-- Paket kenangan: muncul saat layar digeser ke bawah dari kolam -->
+      <div class="layar-paket">
+        <div class="paket">
+
+          <!-- Catatan pembuka -->
+          <article class="paket-catatan">
+            <div class="surat-interaktif surat-paket" id="surat-paket">
+              <div class="lembar-surat" id="isi-surat-paket" aria-hidden="true">
+                <p class="surat-label">A little note for you</p>
+                <h2 class="paket-judul">to my once upon a time</h2>
+                <p class="paket-sapa">happy birthday, you</p>
+                <p class="paket-teks">i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain bisa tercapai, semoga lo selalu dikelilingi hal' baik. i hope you find happiness in the little things, get everything u've been working for, n always have a reason to smile. please take care of yourself, eat well, don't stay up too late, and be kinder to yourself.</p>
+                <p class="paket-teks">gue gatau ini udah hari keberapa, but i still find myself thinking about you. sometimes it makes me happy, knowing that i once got to experience being loved by you. but it also makes me sad knowing that i can't have that anymore.</p>
+                <p class="paket-teks">i know i expected too much sometimes, and maybe i cared more than i should've. but despite everything, i'm still glad our paths crossed.</p>
+                <p class="paket-teks">thank you for being a part of my story, damie. and if there's one thing i wish for, it's that we never cross paths again by accident.</p>
+                <a class="paket-tombol" href="">happy birthday yaa. i hope the world is gentle with you.</a>
+                <p class="paket-tanda">from: jejuu</p>
+              </div>
+              <button class="amplop" id="amplop-paket" type="button" aria-expanded="false" aria-controls="isi-surat-paket" aria-label="Buka surat">
+                <span class="amplop-flap" aria-hidden="true"></span>
+                <span class="amplop-pocket" aria-hidden="true"></span>
+                <span class="amplop-segel" aria-hidden="true">&hearts;</span>
+                <span class="amplop-petunjuk">Tap to open</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Buket -->
+          <article class="paket-buket" id="paket-buket">
+            <h2>Buket</h2>
+            <p class="paket-dari">From: jejuu</p>
+            <div class="buket-gambar" aria-hidden="true">
+              <i class="daun" style="--x:22%; --y:54%; --r:-32deg"></i>
+              <i class="daun" style="--x:80%; --y:56%; --r:30deg"></i>
+              <i class="daun" style="--x:50%; --y:70%; --r:-4deg"></i>
+              <i class="kembang mawar" style="--x:36%; --y:30%; --w:44%; --h:38deg"></i>
+              <i class="kembang aster" style="--x:71%; --y:27%; --w:36%; --h:22deg"></i>
+              <i class="kembang mawar" style="--x:55%; --y:47%; --w:42%; --h:52deg"></i>
+              <i class="kembang mawar" style="--x:21%; --y:47%; --w:30%; --h:30deg"></i>
+              <i class="kembang aster" style="--x:81%; --y:49%; --w:30%; --h:36deg"></i>
+              <i class="kertas"></i>
+              <i class="pita"></i>
+            </div>
+          </article>
+
+          <!-- Foto dari assets/image/ -->
+          <div class="paket-foto">
+            <div class="foto" style="--foto:url('assets/image/image11.jpeg')"></div>
+            <div class="foto" style="--foto:url('assets/image/image7.jpeg')"></div>
+            <div class="foto" style="--foto:url('assets/image/image8.jpeg')"></div>
+            <div class="foto" style="--foto:url('assets/image/image9.jpeg')"></div>
+            <div class="foto" style="--foto:url('assets/image/image10.jpeg')"></div>
+          </div>
+
+          <!-- Lagu lokal -->
+          <div class="paket-lagu" aria-label="Pemutar musik">
+            <audio id="audio-musik" preload="none" loop></audio>
+            <button class="lagu biru pilihan-lagu" type="button" data-src="assets/music/anything.mpeg.wav" aria-label="Anything" aria-pressed="false" style="--sampul:url('assets/image/cover.jpe')">
+              <span class="lagu-sampul" aria-hidden="true"></span>
+              <span class="lagu-info">
+                <span class="lagu-judul">Anything</span>
+                <span class="lagu-artis">Adrianne Lenker</span>
+                <span class="lagu-preview"><span>Ketuk untuk putar</span></span>
+              </span>
+              <span class="lagu-aksi" aria-hidden="true"><span class="putar"></span></span>
+            </button>
+            <label class="musik-loop"><input id="loop-musik" type="checkbox" checked> repeat playback</label>
+            <p class="musik-status" id="status-musik" role="status" aria-live="polite">Select a song to play.</p>
+          </div>
+
+          <!-- Peta kenangan -->
+          <div class="paket-peta">
+            <svg class="peta-gambar" viewBox="0 0 352 376" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <rect width="352" height="376" fill="#dbe8f8"/>
+              <path d="M352,65 L334,66 L300,70 L262,74 L222,78 L190,79 L176,80 L160,89 L143,97 L130,109 L120,121 L116,135 L117,148 L128,163 L140,178 L152,191 L166,202 L181,215 L190,231 L200,251 L206,269 L211,289 L206,308 L192,325 L178,338 L165,349 L153,355 L133,376 L352,376 Z" fill="#c9dcf3" stroke="#b3cdec" stroke-width="1"/>
+              <path d="M0,297 L23,299 L36,317 L61,348 L79,349 L84,350 L100,363 L105,376 L0,376 Z" fill="#c9dcf3" stroke="#b3cdec" stroke-width="1"/>
+              <ellipse cx="228" cy="141" rx="24" ry="17" fill="#dbe8f8" stroke="#b3cdec" stroke-width="1"/>
+              <g fill="none" stroke="#9dbbe3" stroke-width="1" stroke-dasharray="4 3">
+                <path d="M24,57 L40,65 L70,75 L95,83 L120,89 L150,83 L176,80"/>
+                <path d="M72,75 L88,103 L98,131 L104,163 L128,188 L148,213 L162,238 L164,249"/>
+                <path d="M24,65 L45,98 L35,123 L30,148 L38,165 L60,171 L92,180 L110,213 L120,237 L115,254"/>
+                <path d="M115,254 L74,256 L45,261 L32,277 L36,309"/>
+                <path d="M164,249 L156,267 L146,289 L136,305 L130,319 L137,335 L118,343 L96,346 L84,350"/>
+              </g>
+            </svg>
+
+            <p class="peta-kecil">Peta kenangan</p>
+            <h2 class="peta-judul">Peta kenangan</h2>
+            <div class="peta-zoom" aria-hidden="true"><span>−</span><span>+</span></div>
+
+            <span class="peta-nama" style="--x:28.1%; --y:31.9%">Laos<br>ປະເທດລາວ</span>
+            <span class="peta-nama" style="--x:12.5%; --y:62.5%">Thailand<br>ประเทศไทย</span>
+            <span class="peta-nama" style="--x:36.6%; --y:75.8%">Cambodia<br>កម្ពុជា</span>
+            <span class="peta-nama" style="--x:92.6%; --y:16.5%">香港</span>
+            <span class="peta-nama" style="--x:45.5%; --y:88.8%">Hồ Chí Minh City</span>
+            <span class="peta-nama" style="--x:1.7%; --y:91.2%">Surat Thani<br>สุราษฎร์ธานี</span>
+
+            <p class="peta-petunjuk">Use two fingers to pan the map</p>
+
+            <i class="peta-pin" style="--x:42.3%; --y:26.1%; --r:-4deg; --foto:url('assets/image/image6.jpeg')"></i>
+            <i class="peta-pin" style="--x:57.1%; --y:55.3%; --r:3deg; --foto:url('assets/image/image12.jpeg')"></i>
+            <i class="peta-pin peta-pin-besar" style="--x:48%; --y:87%; --r:-3deg; --foto:url('assets/image/image13.jpeg')"></i>
+          </div>
+
+        </div>
+      </div>
+
+  </section>
+
+  <script>
+    const audioMusik = document.getElementById("audio-musik");
+    const tombolLagu = document.querySelectorAll(".pilihan-lagu");
+    const loopMusik = document.getElementById("loop-musik");
+    const statusMusik = document.getElementById("status-musik");
+
+    audioMusik.loop = loopMusik.checked;
+
+    function perbaruiStatusMusik() {
+      const laguAktif = [...tombolLagu].find((tombol) => tombol.dataset.src === audioMusik.dataset.laguAktif);
+      tombolLagu.forEach((tombol) => {
+        const sedangDiputar = tombol === laguAktif && !audioMusik.paused;
+        const judul = tombol.querySelector(".lagu-judul").textContent;
+        tombol.classList.toggle("sedang-diputar", sedangDiputar);
+        tombol.setAttribute("aria-pressed", String(sedangDiputar));
+        tombol.setAttribute("aria-label", `${sedangDiputar ? "Jeda" : "Putar"} ${judul}`);
+      });
+
+      if (laguAktif) {
+        const judul = laguAktif.querySelector(".lagu-judul").textContent;
+        statusMusik.textContent = audioMusik.paused ? `Dijeda: ${judul}` : `Sedang diputar: ${judul}`;
+      }
+    }
+
+    tombolLagu.forEach((tombol) => {
+      tombol.addEventListener("click", () => {
+        const laguSama = audioMusik.dataset.laguAktif === tombol.dataset.src;
+        if (laguSama && !audioMusik.paused) {
+          audioMusik.pause();
+          return;
+        }
+
+        if (!laguSama) {
+          audioMusik.src = tombol.dataset.src;
+          audioMusik.dataset.laguAktif = tombol.dataset.src;
+        }
+
+        audioMusik.play().catch(() => {
+          statusMusik.textContent = "Lagu tidak dapat diputar. Periksa file audio.";
+        });
+      });
+    });
+
+    loopMusik.addEventListener("change", () => {
+      audioMusik.loop = loopMusik.checked;
+    });
+
+    audioMusik.addEventListener("play", perbaruiStatusMusik);
+    audioMusik.addEventListener("pause", perbaruiStatusMusik);
+    audioMusik.addEventListener("ended", perbaruiStatusMusik);
+    audioMusik.addEventListener("error", () => {
+      statusMusik.textContent = "Lagu tidak dapat diputar. Periksa file audio.";
+    });
+
+    document.querySelectorAll(".amplop").forEach((amplop) => {
+      const isiSurat = document.getElementById(amplop.getAttribute("aria-controls"));
+      const areaSurat = amplop.closest(".surat-interaktif");
+      const petunjukSurat = amplop.querySelector(".amplop-petunjuk");
+
+      amplop.addEventListener("click", () => {
+        const suratTerbuka = amplop.getAttribute("aria-expanded") !== "true";
+        amplop.setAttribute("aria-expanded", String(suratTerbuka));
+        amplop.setAttribute("aria-label", suratTerbuka ? "Tutup surat" : "Buka surat");
+        isiSurat.setAttribute("aria-hidden", String(!suratTerbuka));
+        areaSurat.classList.toggle("surat-terbuka", suratTerbuka);
+        petunjukSurat.textContent = suratTerbuka ? "Tap to close" : "Tap to open";
+      });
+    });
+  </script>
+</body>
+</html>

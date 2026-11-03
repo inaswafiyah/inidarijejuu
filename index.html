@@ -616,6 +616,101 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tebarBunga(); }
     });
 
+    // Gelembung muncul saat foto di kolam diklik
+    function tiupGelembung(foto) {
+      const k = foto.getBoundingClientRect();
+      const cx = k.left + k.width / 2, cy = k.top + k.height / 2;
+      const jumlah = kurangGerak ? 5 : 14;
+
+      if (!kurangGerak) {
+        foto.animate(
+          [{ scale: 1 }, { scale: 1.2 }, { scale: .92 }, { scale: 1.04 }, { scale: 1 }],
+          { duration: 520, easing: "ease-out" }
+        );
+      }
+      if (lapisBunga.childElementCount > 60) return;
+
+      for (let i = 0; i < jumlah; i++) {
+        const d = acak(10, 36);
+        const busa = document.createElement("i");
+        busa.className = "busa";
+        busa.style.width = busa.style.height = `${d}px`;
+        lapisBunga.appendChild(busa);
+
+        const sudut = acak(0, Math.PI * 2), jari = acak(0, k.width * 0.35);
+        const x0 = cx + Math.cos(sudut) * jari - d / 2;
+        const y0 = cy + Math.sin(sudut) * jari - d / 2;
+        const naik = acak(160, 420), a = acak(10, 34);
+        const anim = busa.animate([
+          { transform: `translate(${x0}px, ${y0}px) scale(0)`, opacity: 0, easing: "ease-out" },
+          { offset: .15, transform: `translate(${x0}px, ${y0 - naik * .12}px) scale(1)`, opacity: 1 },
+          { offset: .45, transform: `translate(${x0 + a}px, ${y0 - naik * .5}px) scale(1)`, opacity: .95 },
+          { offset: .75, transform: `translate(${x0 - a * .7}px, ${y0 - naik * .85}px) scale(1.05)`, opacity: .9 },
+          { offset: .92, transform: `translate(${x0 + a * .3}px, ${y0 - naik}px) scale(1.1)`, opacity: .85 },
+          { transform: `translate(${x0 + a * .3}px, ${y0 - naik - 6}px) scale(1.5)`, opacity: 0 }
+        ], { duration: kurangGerak ? 900 : acak(1800, 3200), delay: acak(0, 350), fill: "both" });
+        anim.onfinish = () => busa.remove();
+      }
+    }
+
+    document.querySelectorAll(".panel-kolam .gelembung").forEach((foto, i) => {
+      foto.setAttribute("role", "button");
+      foto.setAttribute("tabindex", "0");
+      foto.setAttribute("aria-label", `Tiup gelembung dari foto ${i + 1}`);
+      foto.addEventListener("click", () => tiupGelembung(foto));
+      foto.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tiupGelembung(foto); }
+      });
+    });
+
+    // Ikan koi kabur saat diklik
+    function kaburKoi(koi, e) {
+      const x = e.clientX, y = e.clientY;
+
+      // cipratan air di titik klik
+      const cincin = document.createElement("i");
+      cincin.className = "cipratan";
+      cincin.style.left = `${x}px`;
+      cincin.style.top = `${y}px`;
+      lapisBunga.appendChild(cincin);
+      cincin.animate(
+        [{ transform: "translate(-50%, -50%) scale(.2)", opacity: .9 }, { transform: "translate(-50%, -50%) scale(2.4)", opacity: 0 }],
+        { duration: 750, easing: "ease-out" }
+      ).onfinish = () => cincin.remove();
+
+      if (!kurangGerak) {
+        for (let i = 0; i < 5; i++) {
+          const d = acak(5, 11), busa = document.createElement("i");
+          busa.className = "busa";
+          busa.style.width = busa.style.height = `${d}px`;
+          lapisBunga.appendChild(busa);
+          const dx = acak(-34, 34), dy = acak(-46, -14);
+          busa.animate([
+            { transform: `translate(${x - d / 2}px, ${y - d / 2}px) scale(.3)`, opacity: 0 },
+            { offset: .3, opacity: 1 },
+            { transform: `translate(${x - d / 2 + dx}px, ${y - d / 2 + dy}px) scale(1.2)`, opacity: 0 }
+          ], { duration: acak(500, 900), easing: "ease-out" }).onfinish = () => busa.remove();
+        }
+      }
+
+      // ikan melesat lalu pelan-pelan tenang lagi
+      const anims = koi.getAnimations({ subtree: true });
+      const puncak = kurangGerak ? 1 : 7;
+      const mulai = performance.now();
+      koi._kabur = mulai;
+      (function langkah(t) {
+        if (koi._kabur !== mulai) return;
+        const p = Math.min(1, (t - mulai) / 2200);
+        const laju = 1 + (puncak - 1) * Math.pow(1 - p, 2);
+        anims.forEach((a) => { a.playbackRate = laju; });
+        if (p < 1) requestAnimationFrame(langkah);
+      })(mulai);
+    }
+
+    document.querySelectorAll(".koi").forEach((koi) => {
+      koi.addEventListener("pointerdown", (e) => kaburKoi(koi, e));
+    });
+
     const tombolFoto = document.querySelectorAll(".foto-klik");
     const dialogFoto = document.getElementById("foto-dialog");
     const gambarDialogFoto = document.getElementById("foto-dialog-gambar");

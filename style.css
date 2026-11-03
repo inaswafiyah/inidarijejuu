@@ -2968,3 +2968,67 @@ body {
 @media (max-height: 560px) {
   .capung { display: none; }
 }
+
+
+/* ==========================================================
+   GELEMBUNG saat foto kolam diklik
+   ========================================================== */
+
+.panel-kolam .gelembung {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.panel-kolam .gelembung:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.busa {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, .95) 0 9%, transparent 22%),
+    radial-gradient(circle at 70% 78%, rgba(255, 255, 255, .45) 0 7%, transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .06) 55%, rgba(190, 226, 255, .5) 100%);
+  border: 1.5px solid rgba(255, 255, 255, .8);
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, .5);
+  will-change: transform, opacity;
+}
+
+
+/* ==========================================================
+   IKAN koi bisa diklik -> kabur
+   ========================================================== */
+
+/* Panel tidak lagi menghalangi klik ke ikan di bawahnya;
+   hanya foto & catatan yang menerima klik */
+.panel-kolam { pointer-events: none; }
+.panel-kolam .gelembung,
+.panel-kolam .catatan { pointer-events: auto; }
+
+.koi {
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* area sentuh lebih besar agar mudah diketuk */
+.koi::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+}
+
+.cipratan {
+  position: absolute;
+  width: 70px;
+  aspect-ratio: 1;
+  border: 2px solid rgba(255, 255, 255, .85);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, .25);
+  opacity: 0;
+}

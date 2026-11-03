@@ -248,7 +248,7 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
                 </div>
                 <span class="surat-segel" aria-hidden="true">&hearts;</span>
                 <i class="surat-hati" style="--x:-4%;--y:8%;--d:0s;--u:1.3rem"></i><i class="surat-hati" style="--x:98%;--y:14%;--d:0.6s;--u:1.0rem"></i><i class="surat-hati" style="--x:-6%;--y:52%;--d:1.2s;--u:0.9rem"></i><i class="surat-hati" style="--x:102%;--y:58%;--d:0.3s;--u:1.4rem"></i><i class="surat-hati" style="--x:8%;--y:-6%;--d:1.8s;--u:0.9rem"></i><i class="surat-hati" style="--x:88%;--y:-5%;--d:0.9s;--u:1.1rem"></i><i class="surat-hati" style="--x:50%;--y:104%;--d:1.5s;--u:1.0rem"></i>
-                <button class="surat-tutup" id="surat-tutup" type="button" aria-label="Tutup surat">&times;</button>
+                <button class="surat-tutup" id="surat-tutup" type="button" autofocus aria-label="Tutup surat">&times;</button>
               </div>
             </dialog>
           </article>
@@ -521,7 +521,11 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
     amplopPaket.addEventListener("click", () => {
       areaSurat.classList.add("surat-terbuka");
       petunjukSurat.textContent = "Opening...";
-      setTimeout(() => dialogSurat.showModal(), 380);
+      setTimeout(() => {
+        dialogSurat.showModal();
+        dialogSurat.querySelector(".surat-kertas").scrollTop = 0;
+        document.getElementById("surat-tutup").focus({ preventScroll: true });
+      }, 380);
     });
 
     function tutupSurat() {

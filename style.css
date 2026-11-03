@@ -2599,3 +2599,52 @@ body {
 .surat-dialog:has(.surat-kertas:active) .surat-hati {
   animation-play-state: paused;
 }
+
+
+/* ==========================================================
+   BUKET: klik -> bunga bertebaran
+   ========================================================== */
+
+.paket-buket {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.paket-buket:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: -6px;
+}
+
+.paket-buket.lompat .buket-gambar {
+  animation: buket-lompat .5s ease;
+}
+
+@keyframes buket-lompat {
+  30% { transform: scale(1.08, .93); }
+  60% { transform: scale(.97, 1.05); }
+}
+
+.buket-petunjuk {
+  margin-top: 14px;
+  font-size: .8rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, .85);
+}
+
+.hujan-bunga {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hujan-bunga .kembang {
+  position: absolute;
+  left: 0;
+  top: 0;
+  filter: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}

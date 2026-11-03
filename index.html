@@ -254,7 +254,7 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
           </article>
 
           <!-- Buket -->
-          <article class="paket-buket" id="paket-buket">
+          <article class="paket-buket" id="paket-buket" role="button" tabindex="0" aria-label="Tebarkan bunga">
             <h2>Buket</h2>
             <p class="paket-dari">From: jejuu</p>
             <div class="buket-gambar" aria-hidden="true">
@@ -269,6 +269,7 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
               <i class="kertas"></i>
               <i class="pita"></i>
             </div>
+            <p class="buket-petunjuk">tap the bouquet</p>
           </article>
 
           <!-- Foto dari assets/image/ -->
@@ -558,6 +559,54 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
         miringSurat.style.setProperty("--ry", "0deg");
       });
     }
+
+    // Bunga bertebaran saat buket diklik
+    const buketKartu = document.getElementById("paket-buket");
+    const lapisBunga = document.createElement("div");
+    lapisBunga.className = "hujan-bunga";
+    lapisBunga.setAttribute("aria-hidden", "true");
+    document.querySelector(".kolam").appendChild(lapisBunga);
+    const jenisBunga = ["mawar", "aster", "anemon"];
+    const acak = (a, b) => a + Math.random() * (b - a);
+    const kurangGerak = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function tebarBunga() {
+      buketKartu.classList.remove("lompat");
+      void buketKartu.offsetWidth;
+      buketKartu.classList.add("lompat");
+      if (lapisBunga.childElementCount > 50) return;
+
+      const kotak = buketKartu.querySelector(".buket-gambar").getBoundingClientRect();
+      const cx = kotak.left + kotak.width / 2;
+      const cy = kotak.top + kotak.height * 0.35;
+      const jumlah = kurangGerak ? 6 : 18;
+
+      for (let i = 0; i < jumlah; i++) {
+        const ukuran = acak(30, 66);
+        const bunga = document.createElement("i");
+        bunga.className = `kembang ${jenisBunga[i % 3]}`;
+        bunga.style.width = `${ukuran}px`;
+        bunga.style.setProperty("--h", `${acak(-40, 40)}deg`);
+        lapisBunga.appendChild(bunga);
+
+        const x0 = cx - ukuran / 2, y0 = cy - ukuran / 2;
+        const dx = acak(-1, 1) * Math.min(window.innerWidth * 0.48, 260);
+        const naik = acak(110, 300);
+        const jatuh = window.innerHeight - y0 + 90;
+        const putar = acak(-300, 300);
+        const anim = bunga.animate([
+          { transform: `translate(${x0}px, ${y0}px) scale(0) rotate(0deg)`, opacity: 0, easing: "cubic-bezier(.2,.8,.3,1)" },
+          { offset: .25, transform: `translate(${x0 + dx}px, ${y0 - naik}px) scale(1) rotate(${putar / 2}deg)`, opacity: 1, easing: "ease-in" },
+          { transform: `translate(${x0 + dx * 1.3}px, ${y0 + jatuh}px) scale(.85) rotate(${putar}deg)`, opacity: 0.9 }
+        ], { duration: kurangGerak ? 900 : acak(2400, 3600), delay: acak(0, 220), fill: "both" });
+        anim.onfinish = () => bunga.remove();
+      }
+    }
+
+    buketKartu.addEventListener("click", tebarBunga);
+    buketKartu.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tebarBunga(); }
+    });
 
     const tombolFoto = document.querySelectorAll(".foto-klik");
     const dialogFoto = document.getElementById("foto-dialog");

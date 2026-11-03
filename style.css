@@ -2648,3 +2648,323 @@ body {
   opacity: 0;
   will-change: transform, opacity;
 }
+
+
+/* ==========================================================
+   KOLAM — tampilan kolam sungguhan (dilihat dari atas)
+   ========================================================== */
+
+/* Air: terang di permukaan, makin dalam ke bawah */
+.air {
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 255, 255, .5), transparent 55%),
+    radial-gradient(ellipse at 50% 55%, transparent 40%, rgba(12, 52, 102, .35) 100%),
+    linear-gradient(180deg, #b9ddf3 0%, #8cc5e8 30%, #55a0d6 68%, #2f74b3 100%);
+}
+
+/* Dua lapis riak permukaan yang bergerak berlawanan */
+.air::before,
+.air::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background:
+    repeating-radial-gradient(circle at 30% 40%, transparent 0 22px, rgba(255, 255, 255, .17) 24px 26px, transparent 28px 52px) 0 0 / 190px 150px,
+    repeating-radial-gradient(circle at 75% 60%, transparent 0 30px, rgba(255, 255, 255, .12) 32px 34px, transparent 36px 64px) 40px 30px / 250px 210px;
+  animation: air-a 16s ease-in-out infinite alternate;
+}
+
+.air::after {
+  opacity: .6;
+  background-size: 230px 180px, 170px 140px;
+  animation: air-b 21s ease-in-out infinite alternate;
+}
+
+@keyframes air-a {
+  from { transform: translate(-40px, 20px) rotate(0deg); }
+  to   { transform: translate(40px, -30px) rotate(4deg); }
+}
+
+@keyframes air-b {
+  from { transform: translate(50px, -20px) rotate(3deg); }
+  to   { transform: translate(-50px, 30px) rotate(-3deg); }
+}
+
+/* Cincin riak yang melebar di permukaan */
+.riak-air {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 110px;
+  aspect-ratio: 1;
+  border: 2px solid rgba(255, 255, 255, .6);
+  border-radius: 50%;
+  translate: -50% -50%;
+  opacity: 0;
+  animation: riak-melebar 6s ease-out var(--d) infinite;
+}
+
+.riak-air::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid rgba(255, 255, 255, .45);
+  border-radius: 50%;
+}
+
+@keyframes riak-melebar {
+  0%   { opacity: .9; transform: scale(.15); }
+  100% { opacity: 0;  transform: scale(1.9); }
+}
+
+/* Tepi kolam: batu kerikil + bayangan dalam */
+.tepi {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 50px 8px rgba(10, 44, 92, .5);
+}
+
+.tepi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 11px;
+  background:
+    radial-gradient(circle at 30% 35%, #e2dccf 0 38%, transparent 41%) 0 0 / 24px 21px,
+    radial-gradient(circle at 70% 65%, #bdb5a7 0 36%, transparent 39%) 12px 10px / 24px 21px,
+    radial-gradient(circle at 50% 50%, #a69e90 0 34%, transparent 37%) 5px 4px / 17px 15px,
+    #8a8274;
+  -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(60, 54, 44, .35);
+}
+
+/* Koi (SVG, tampak atas) */
+.koi {
+  position: absolute;
+  left: 0;
+  top: var(--y);
+  width: var(--u);
+  line-height: 0;
+}
+
+.koi svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.koi .ekor,
+.koi .sirip {
+  fill: #ffc79e;
+  fill-opacity: .88;
+}
+
+.koi .ekor {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: ekor-kibas .8s ease-in-out infinite alternate;
+}
+
+.koi .sirip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sirip-kepak 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes ekor-kibas {
+  from { transform: rotate(-14deg) scaleY(.92); }
+  to   { transform: rotate(14deg) scaleY(1.05); }
+}
+
+@keyframes sirip-kepak {
+  from { transform: rotate(-6deg); }
+  to   { transform: rotate(8deg); }
+}
+
+.pemicu:checked ~ .kolam .koi.kanan {
+  animation:
+    koi-kanan var(--w) linear var(--d) infinite,
+    koi-lenggok 5s ease-in-out var(--d) infinite alternate;
+}
+
+.pemicu:checked ~ .kolam .koi.kiri {
+  animation:
+    koi-kiri var(--w) linear var(--d) infinite,
+    koi-lenggok 6s ease-in-out var(--d) infinite alternate;
+}
+
+@keyframes koi-kanan {
+  from { transform: translateX(-30vw); }
+  to   { transform: translateX(130vw); }
+}
+
+@keyframes koi-kiri {
+  from { transform: translateX(130vw) scaleX(-1); }
+  to   { transform: translateX(-30vw) scaleX(-1); }
+}
+
+@keyframes koi-lenggok {
+  from { translate: 0 -16px; rotate: -5deg; }
+  to   { translate: 0 18px;  rotate: 5deg; }
+}
+
+/* Daun teratai */
+.padi {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  aspect-ratio: 1;
+  rotate: var(--r);
+  animation: padi-apung 8s ease-in-out var(--d) infinite alternate;
+}
+
+.daun-padi {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(from 0deg at 50% 50%, transparent 0 13deg, rgba(14, 70, 44, .28) 13deg 14.5deg),
+    radial-gradient(circle at 40% 35%, #9bd98f, #55ad6c 58%, #2f7f52);
+  box-shadow: inset 0 0 0 3px rgba(20, 84, 52, .35);
+  -webkit-mask: conic-gradient(from 25deg at 50% 50%, transparent 0 24deg, #000 0);
+          mask: conic-gradient(from 25deg at 50% 50%, transparent 0 24deg, #000 0);
+}
+
+.bunga-padi {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  translate: -50% -50%;
+  filter: none;
+}
+
+@keyframes padi-apung {
+  from { translate: 0 0; }
+  to   { translate: 7px -5px; }
+}
+
+/* Foto yang mengapung: bayangan & riak di sekelilingnya */
+.panel-kolam .gelembung {
+  box-shadow: 0 10px 18px rgba(8, 44, 92, .35);
+}
+
+.panel-kolam .gelembung::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px solid rgba(255, 255, 255, .6);
+  border-radius: 50%;
+  opacity: 0;
+  animation: riak-foto 4.5s ease-out var(--t, 0s) infinite;
+}
+
+@keyframes riak-foto {
+  0%   { opacity: .8; transform: scale(1); }
+  100% { opacity: 0;  transform: scale(1.55); }
+}
+
+/* Teks di atas air */
+.kepala-judul { text-shadow: 0 1px 0 rgba(255, 255, 255, .5); }
+.layar-kolam::after { color: rgba(255, 255, 255, .9); }
+
+
+/* ==========================================================
+   KEPALA KOLAM: papan kertas mengapung + teratai + capung
+   ========================================================== */
+
+.kepala {
+  position: relative;
+  width: fit-content;
+  max-width: calc(100% - 36px);
+  margin: 26px 0 0 18px;
+  padding: 16px 22px 16px 20px;
+  background: rgba(247, 251, 255, .84);
+  border: 1px solid rgba(255, 255, 255, .85);
+  border-radius: 20px;
+  box-shadow: 0 12px 24px rgba(8, 44, 92, .28);
+  animation: kepala-apung 7s ease-in-out infinite alternate;
+}
+
+/* ujung papan seperti dijepit pita kecil */
+.kepala::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: -9px;
+  width: 54px;
+  height: 18px;
+  background: rgba(169, 198, 240, .85);
+  border-radius: 3px;
+  rotate: -4deg;
+}
+
+@keyframes kepala-apung {
+  from { translate: 0 0;   rotate: -.6deg; }
+  to   { translate: 0 6px; rotate: .6deg; }
+}
+
+.kepala-judul { text-shadow: none; }
+
+.kepala-bunga {
+  position: absolute;
+  right: -18px;
+  top: -20px;
+  width: 58px;
+  filter: none;
+  animation: putar 40s linear infinite;
+}
+
+/* Capung yang berputar-putar di dekat papan */
+.capung {
+  position: absolute;
+  left: 62%;
+  top: calc(100% - 6px);
+  z-index: 3;
+  width: 46px;
+  pointer-events: none;
+  animation: capung-terbang 15s ease-in-out infinite;
+}
+
+.capung .sayap {
+  fill: rgba(255, 255, 255, .6);
+  stroke: rgba(255, 255, 255, .95);
+  stroke-width: .8;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: sayap-kepak .12s linear infinite alternate;
+}
+
+@keyframes sayap-kepak {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(.55); }
+}
+
+@keyframes capung-terbang {
+  0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+  18%      { transform: translate(60px, -26px) rotate(-22deg); }
+  34%      { transform: translate(90px, 18px) rotate(14deg); }
+  50%      { transform: translate(24px, 40px) rotate(160deg); }
+  50.1%    { transform: translate(24px, 40px) rotate(160deg); }
+  68%      { transform: translate(-60px, 20px) rotate(190deg); }
+  84%      { transform: translate(-30px, -30px) rotate(-30deg); }
+}
+
+@media (min-width: 700px) {
+  .kepala {
+    margin: 32px auto 0;
+    padding: 20px 34px;
+    text-align: center;
+  }
+}
+
+@media (max-height: 560px) {
+  .capung { display: none; }
+}

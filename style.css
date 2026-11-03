@@ -1914,3 +1914,688 @@ body {
     --lebar: min(280px, 70vw);
   }
 }
+
+/* ==========================================================
+   POLISH — perapihan layout (ditambahkan di akhir file)
+   Palet & font asli tetap dipakai; yang dirapikan hanya
+   struktur, jarak, ukuran, dan tampilan di layar lebar.
+   ========================================================== */
+
+:root {
+  --jarak: 16px;
+  --radius-kartu: 22px;
+  --bayang-kartu: 0 10px 28px rgba(31, 51, 88, .14);
+  --garis-kartu: 1px solid rgba(255, 255, 255, .75);
+}
+
+/* ---------- Layar pertama: kolam ---------- */
+
+.kepala {
+  padding: 28px max(22px, 5vw) 12px;
+}
+
+.kepala-judul {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  letter-spacing: -.01em;
+}
+
+.kepala-untuk {
+  font-size: .85rem;
+}
+
+.catatan {
+  left: 50%;
+  right: auto;
+  bottom: 52px;
+  width: min(460px, calc(100% - 32px));
+  padding: 16px 18px;
+  font-size: .82rem;
+  line-height: 1.6;
+  border-radius: 18px;
+  translate: -50% 0;
+}
+
+/* petunjuk geser ke bawah */
+.layar-kolam::after {
+  content: "geser ke bawah ↓";
+  position: absolute;
+  left: 50%;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 3;
+  font-size: .72rem;
+  color: rgba(28, 46, 74, .7);
+  translate: -50% 0;
+  animation: petunjuk-geser 2.2s ease-in-out infinite;
+}
+
+@keyframes petunjuk-geser {
+  0%, 100% { transform: translateY(0); opacity: .6; }
+  50%      { transform: translateY(5px); opacity: 1; }
+}
+
+/* ---------- Layar kedua: paket kenangan ---------- */
+
+.layar-paket {
+  padding: calc(28px + env(safe-area-inset-top, 0px)) var(--jarak) calc(48px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Susunan: satu kolom di ponsel */
+.paket {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "kepala"
+    "catatan"
+    "buket"
+    "foto"
+    "lagu"
+    "peta"
+    "kaki";
+  gap: var(--jarak);
+  max-width: 520px;
+}
+
+.paket::before {
+  content: "Little Love Goodie";
+  grid-area: kepala;
+  padding: 4px 0 8px;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 500;
+  text-align: center;
+  color: var(--paket-teks);
+}
+
+.paket::after {
+  content: "♥ from jejuu";
+  grid-area: kaki;
+  padding-top: 8px;
+  font-size: .8rem;
+  font-style: italic;
+  text-align: center;
+  color: var(--paket-pudar);
+}
+
+.paket-catatan { grid-area: catatan; }
+.paket-buket   { grid-area: buket; }
+.paket-foto    { grid-area: foto; }
+.paket-lagu    { grid-area: lagu; }
+.paket-peta    { grid-area: peta; }
+
+/* Gaya kartu yang seragam */
+.paket-catatan,
+.paket-buket,
+.paket-foto,
+.paket-lagu,
+.paket-peta {
+  border-radius: var(--radius-kartu);
+  box-shadow: var(--bayang-kartu);
+}
+
+/* ---------- Surat ---------- */
+
+.paket-catatan {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 26px 22px 18px;
+  font-style: normal;
+  border: var(--garis-kartu);
+}
+
+.paket-judul {
+  margin: 6px 0 14px;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.paket-sapa,
+.paket-teks {
+  font-size: .92rem;
+  font-style: normal;
+  line-height: 1.8;
+}
+
+.paket-sapa { font-weight: 600; }
+
+.paket-teks { margin-top: 12px; }
+
+.paket-tombol {
+  margin: 20px 0 14px;
+  padding: 14px 18px;
+  line-height: 1.5;
+  border-radius: 16px;
+}
+
+.paket-tanda {
+  font-size: .8rem;
+}
+
+/* ---------- Buket ---------- */
+
+.paket-buket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 26px 18px 30px;
+}
+
+.paket-buket h2 {
+  font-size: 1.3rem;
+}
+
+.paket-dari {
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: none;
+}
+
+.buket-gambar {
+  width: min(100%, 300px);
+  margin-top: 18px;
+}
+
+/* ---------- Foto ---------- */
+
+.paket-foto {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 16px;
+  border: var(--garis-kartu);
+}
+
+.paket-foto::before,
+.paket-lagu::before {
+  content: "Foto kenangan";
+  grid-column: 1 / -1;
+  padding: 0 2px 4px;
+  font-size: .95rem;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--paket-pudar);
+}
+
+.paket-lagu::before {
+  content: "Satu lagu untukmu";
+}
+
+.paket .paket-foto .foto {
+  aspect-ratio: 1;
+  border-radius: 14px;
+}
+
+/* Foto pertama besar, sisanya kotak rapi */
+.paket .paket-foto .foto:first-of-type {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
+}
+
+/* Foto terakhir (ganjil) melebar agar tidak ada ruang kosong */
+.paket .paket-foto .foto:last-of-type {
+  aspect-ratio: 1;
+}
+
+/* ---------- Lagu ---------- */
+
+.paket-lagu {
+  gap: 12px;
+  padding: 18px 16px 16px;
+  background: var(--paket-krem);
+  border: 1px solid #d0e0f5;
+}
+
+.lagu {
+  min-height: 84px;
+  border-radius: 14px;
+}
+
+.musik-loop {
+  padding-top: 2px;
+  font-size: .8rem;
+}
+
+.musik-status {
+  font-size: .78rem;
+}
+
+/* ---------- Peta ---------- */
+
+.paket-peta {
+  border-width: 3px;
+}
+
+.peta-kecil { display: none; }
+
+.peta-judul {
+  top: 14px;
+  font-size: 1.15rem;
+}
+
+.peta-nama {
+  font-size: clamp(.62rem, 1.6vw, .74rem);
+}
+
+.peta-petunjuk {
+  font-size: clamp(.7rem, 1.6vw, .82rem);
+}
+
+/* ---------- Layar lebar (tablet & desktop) ---------- */
+
+@media (min-width: 860px) {
+  .layar-paket {
+    padding: 56px 32px 72px;
+  }
+
+  .paket {
+    --jarak: 24px;
+    max-width: 1040px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "kepala  kepala"
+      "catatan buket"
+      "foto    foto"
+      "lagu    peta"
+      "kaki    kaki";
+  }
+
+  .paket::before {
+    padding-bottom: 16px;
+    font-size: 2.2rem;
+  }
+
+  .paket-catatan {
+    padding: 34px 32px 24px;
+  }
+
+  .paket-buket {
+    padding: 34px 24px 40px;
+  }
+
+  .buket-gambar {
+    width: min(100%, 340px);
+  }
+
+  /* Foto: mosaik 3 kolom */
+  .paket-foto {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto;               /* baris 1 = judul kecil */
+    grid-auto-rows: clamp(150px, 17vw, 210px);
+    gap: 14px;
+    padding: 24px;
+  }
+
+  .paket-foto::before {
+    font-size: 1.05rem;
+  }
+
+  .paket .paket-foto .foto,
+  .paket .paket-foto .foto:first-of-type,
+  .paket .paket-foto .foto:last-of-type {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .paket .paket-foto .foto:first-of-type {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .paket .paket-foto .foto:last-of-type {
+    grid-column: span 2;
+  }
+
+  .paket-lagu {
+    justify-content: center;
+    padding: 28px 26px;
+  }
+
+  .paket-lagu::before {
+    font-size: 1.05rem;
+  }
+}
+
+/* Ponsel kecil */
+@media (max-width: 380px) {
+  .layar-paket { padding-left: 12px; padding-right: 12px; }
+  .paket-catatan { padding: 22px 16px 14px; }
+}
+
+/* Layar pendek (ponsel landscape): beri ruang untuk catatan */
+@media (max-height: 560px) {
+  .catatan { bottom: 40px; padding: 10px 14px; font-size: .74rem; }
+  .kepala-judul { font-size: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layar-kolam::after { animation: none; }
+}
+
+
+/* ==========================================================
+   SURAT POP-UP 3D
+   ========================================================== */
+
+/* Kartu di halaman: hanya amplop yang bergoyang pelan */
+.paket-label {
+  margin-bottom: 14px;
+  font-size: .85rem;
+  letter-spacing: 0;
+  text-transform: none;
+  font-style: italic;
+}
+
+.surat-paket {
+  display: flex;
+  justify-content: center;
+  height: auto;
+  min-height: 0;
+  padding: 8px 0 14px;
+}
+
+.surat-paket .amplop {
+  align-self: auto;
+  animation: amplop-goyang 3.6s ease-in-out infinite;
+}
+
+.surat-paket .amplop:hover,
+.surat-paket.surat-terbuka .amplop {
+  animation-play-state: paused;
+}
+
+@keyframes amplop-goyang {
+  0%, 100% { rotate: 0deg; }
+  6%       { rotate: -2.5deg; }
+  12%      { rotate: 2.5deg; }
+  18%      { rotate: 0deg; }
+}
+
+/* Dialog */
+.surat-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(92vw, 460px);
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: #23395f;
+  background: transparent;
+  border: 0;
+  translate: -50% -50%;
+}
+
+.surat-dialog::backdrop {
+  background: radial-gradient(circle at 50% 40%, rgba(126, 166, 228, .6), rgba(15, 28, 55, .85));
+  backdrop-filter: blur(6px);
+  animation: surat-latar .35s ease both;
+}
+
+@keyframes surat-latar { from { opacity: 0; } to { opacity: 1; } }
+
+.surat-adegan {
+  position: relative;
+  perspective: 1200px;
+  padding-bottom: 36px;
+}
+
+/* Amplop kecil di belakang kertas */
+.surat-belakang {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  height: 110px;
+  background: linear-gradient(145deg, #a8c2e8, #6f91c7);
+  border-radius: 6px 6px 16px 16px;
+  box-shadow: 0 18px 30px rgba(8, 15, 30, .4);
+}
+
+.surat-segel {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  z-index: 4;
+  display: grid;
+  width: 46px;
+  aspect-ratio: 1;
+  place-items: center;
+  color: #b95078;
+  font-size: 1.2rem;
+  background: #fff8ee;
+  border: 2px solid #c9809d;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(20, 38, 74, .3);
+  translate: -50% 0;
+  animation: segel-pop .6s cubic-bezier(.2, 1.6, .4, 1) .5s both;
+}
+
+@keyframes segel-pop {
+  from { scale: 0; rotate: -90deg; }
+  to   { scale: 1; rotate: 0deg; }
+}
+
+/* Lapisan miring (mengikuti kursor) */
+.surat-miring {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .18s ease-out;
+}
+
+/* Lapisan animasi masuk + tumpukan kertas (efek tebal 3D) */
+.surat-masuk {
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  animation: surat-keluar 1s cubic-bezier(.2, .9, .3, 1) both;
+}
+
+.surat-masuk::before,
+.surat-masuk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(8, 15, 30, .3);
+}
+
+.surat-masuk::before { background: #b9d0f5; transform: translateZ(-22px) rotate(-2.6deg); }
+.surat-masuk::after  { background: #8fb0e6; transform: translateZ(-44px) rotate(2.4deg); }
+
+@keyframes surat-keluar {
+  0%   { opacity: 0; transform: translateY(170px) rotateX(-70deg) scale(.5); }
+  55%  { opacity: 1; transform: translateY(-16px) rotateX(9deg) scale(1.03); }
+  78%  { transform: translateY(5px) rotateX(-2deg) scale(.995); }
+  100% { opacity: 1; transform: none; }
+}
+
+.surat-dialog.menutup .surat-masuk {
+  animation: surat-masuk-lagi .26s ease-in both;
+}
+
+.surat-dialog.menutup::backdrop {
+  opacity: 0;
+  transition: opacity .26s ease;
+}
+
+@keyframes surat-masuk-lagi {
+  to { opacity: 0; transform: translateY(120px) rotateX(-55deg) scale(.55); }
+}
+
+/* Kertas surat */
+.surat-kertas {
+  position: relative;
+  max-height: min(74vh, 620px);
+  overflow-y: auto;
+  padding: 30px 28px 26px;
+  font-family: var(--font-serif);
+  font-size: .94rem;
+  font-style: normal;
+  line-height: 1.8;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 31px, rgba(102, 132, 176, .09) 32px),
+    #fffdf8;
+  border: 1px solid #e7dccb;
+  border-radius: 14px;
+  box-shadow: 0 24px 50px rgba(8, 15, 30, .35);
+  scrollbar-width: thin;
+}
+
+.surat-kertas > * {
+  animation: teks-naik .6s ease .5s both;
+}
+
+@keyframes teks-naik {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.surat-kertas .surat-label {
+  margin-bottom: 6px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  font-style: italic;
+  text-align: center;
+  color: #6f82a0;
+}
+
+.surat-kertas .paket-judul {
+  margin: 0 0 16px;
+  font-size: 1.4rem;
+}
+
+.surat-kertas .paket-teks { margin-top: 12px; }
+.surat-kertas .paket-tanda { margin-top: 4px; }
+
+.surat-kertas .paket-tombol {
+  margin: 20px 0 14px;
+}
+
+/* Hati kecil yang melayang */
+.surat-hati {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 5;
+  font-size: var(--u);
+  font-style: normal;
+  line-height: 1;
+  color: #ffffff;
+  filter: drop-shadow(0 3px 5px rgba(8, 15, 30, .35));
+  pointer-events: none;
+  animation: hati-apung 3.4s ease-in-out var(--d) infinite alternate;
+}
+
+.surat-hati::before { content: "\2665"; }
+
+.surat-hati:nth-of-type(even) { color: #cfe1fb; }
+
+@keyframes hati-apung {
+  from { transform: translateY(6px) rotate(-12deg) scale(.9); }
+  to   { transform: translateY(-14px) rotate(12deg) scale(1.15); }
+}
+
+/* Tombol tutup */
+.surat-tutup {
+  position: absolute;
+  top: -14px;
+  right: -6px;
+  z-index: 6;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: #14264a;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: #f6faff;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 6px 14px rgba(8, 15, 30, .35);
+  cursor: pointer;
+  transition: transform .18s ease;
+}
+
+.surat-tutup:hover { transform: rotate(90deg) scale(1.08); }
+.surat-tutup:focus-visible { outline: 3px solid #7ea6e4; outline-offset: 3px; }
+
+@media (max-width: 480px) {
+  .surat-kertas { padding: 26px 20px 22px; font-size: .9rem; }
+}
+
+
+/* ==========================================================
+   PERBAIKAN surat pop-up: teks tertutup & scroll berat
+   ========================================================== */
+
+/* Tanpa blur (berat di HP) */
+.surat-dialog::backdrop {
+  backdrop-filter: none;
+  background: radial-gradient(circle at 50% 40%, rgba(70, 104, 165, .92), rgba(12, 24, 48, .96));
+}
+
+/* Tumpukan kertas pakai urutan z-index biasa, bukan kedalaman 3D,
+   supaya selalu berada DI BELAKANG kertas surat */
+.surat-adegan { perspective: none; }
+
+.surat-miring {
+  transform-style: flat;
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+
+.surat-masuk {
+  transform-style: flat;
+  isolation: isolate;
+}
+
+.surat-masuk::before {
+  z-index: -1;
+  transform: translate(-5px, 7px) rotate(-2.6deg);
+  box-shadow: none;
+}
+
+.surat-masuk::after {
+  z-index: -2;
+  transform: translate(6px, 13px) rotate(2.4deg);
+  box-shadow: none;
+}
+
+@keyframes surat-keluar {
+  0%   { opacity: 0; transform: perspective(900px) translateY(170px) rotateX(-70deg) scale(.5); }
+  55%  { opacity: 1; transform: perspective(900px) translateY(-16px) rotateX(9deg) scale(1.03); }
+  78%  { transform: perspective(900px) translateY(5px) rotateX(-2deg) scale(.995); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes surat-masuk-lagi {
+  to { opacity: 0; transform: perspective(900px) translateY(120px) rotateX(-55deg) scale(.55); }
+}
+
+/* Kertas: scroll lebih ringan */
+.surat-kertas {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 12px 26px rgba(8, 15, 30, .3);
+}
+
+.surat-belakang { box-shadow: 0 8px 16px rgba(8, 15, 30, .3); }
+
+/* Hati: tanpa filter (filter + animasi = berat) */
+.surat-hati {
+  filter: none;
+  text-shadow: 0 2px 4px rgba(8, 15, 30, .4);
+  will-change: transform;
+}
+
+/* Saat kertas di-scroll, hentikan animasi hati agar halus */
+.surat-dialog:has(.surat-kertas:active) .surat-hati {
+  animation-play-state: paused;
+}

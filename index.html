@@ -217,25 +217,40 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
 
           <!-- Catatan pembuka -->
           <article class="paket-catatan">
+            <p class="paket-label">a little note for you</p>
             <div class="surat-interaktif surat-paket" id="surat-paket">
-              <div class="lembar-surat" id="isi-surat-paket" aria-hidden="true">
-                <p class="surat-label">A little note for you</p>
-                <h2 class="paket-judul">to my once upon a time</h2>
-                <p class="paket-sapa">happy birthday, you</p>
-                <p class="paket-teks">i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain bisa tercapai, semoga lo selalu dikelilingi hal' baik. i hope you find happiness in the little things, get everything u've been working for, n always have a reason to smile. please take care of yourself, eat well, don't stay up too late, and be kinder to yourself.</p>
-                <p class="paket-teks">gue gatau ini udah hari keberapa, but i still find myself thinking about you. sometimes it makes me happy, knowing that i once got to experience being loved by you. but it also makes me sad knowing that i can't have that anymore.</p>
-                <p class="paket-teks">i know i expected too much sometimes, and maybe i cared more than i should've. but despite everything, i'm still glad our paths crossed.</p>
-                <p class="paket-teks">thank you for being a part of my story, damie. and if there's one thing i wish for, it's that we never cross paths again by accident.</p>
-                <a class="paket-tombol" href="">happy birthday yaa. i hope the world is gentle with you.</a>
-                <p class="paket-tanda">from: jejuu</p>
-              </div>
-              <button class="amplop" id="amplop-paket" type="button" aria-expanded="false" aria-controls="isi-surat-paket" aria-label="Buka surat">
+              <button class="amplop" id="amplop-paket" type="button" aria-haspopup="dialog" aria-label="Buka surat">
                 <span class="amplop-flap" aria-hidden="true"></span>
                 <span class="amplop-pocket" aria-hidden="true"></span>
                 <span class="amplop-segel" aria-hidden="true">&hearts;</span>
                 <span class="amplop-petunjuk">Tap to open</span>
               </button>
             </div>
+
+            <!-- Surat pop-up 3D -->
+            <dialog class="surat-dialog" id="surat-dialog" aria-label="Surat untukmu">
+              <div class="surat-adegan">
+                <div class="surat-belakang" aria-hidden="true"></div>
+                <div class="surat-miring">
+                  <div class="surat-masuk">
+                    <article class="surat-kertas">
+        <p class="surat-label">A little note for you</p>
+        <h2 class="paket-judul">to my once upon a time</h2>
+        <p class="paket-sapa">happy birthday, you</p>
+        <p class="paket-teks">i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain bisa tercapai, semoga lo selalu dikelilingi hal' baik. i hope you find happiness in the little things, get everything u've been working for, n always have a reason to smile. please take care of yourself, eat well, don't stay up too late, and be kinder to yourself.</p>
+        <p class="paket-teks">gue gatau ini udah hari keberapa, but i still find myself thinking about you. sometimes it makes me happy, knowing that i once got to experience being loved by you. but it also makes me sad knowing that i can't have that anymore.</p>
+        <p class="paket-teks">i know i expected too much sometimes, and maybe i cared more than i should've. but despite everything, i'm still glad our paths crossed.</p>
+        <p class="paket-teks">thank you for being a part of my story, damie. and if there's one thing i wish for, it's that we never cross paths again by accident.</p>
+        <a class="paket-tombol" href="">happy birthday yaa. i hope the world is gentle with you.</a>
+        <p class="paket-tanda">from: jejuu</p>
+                    </article>
+                  </div>
+                </div>
+                <span class="surat-segel" aria-hidden="true">&hearts;</span>
+                <i class="surat-hati" style="--x:-4%;--y:8%;--d:0s;--u:1.3rem"></i><i class="surat-hati" style="--x:98%;--y:14%;--d:0.6s;--u:1.0rem"></i><i class="surat-hati" style="--x:-6%;--y:52%;--d:1.2s;--u:0.9rem"></i><i class="surat-hati" style="--x:102%;--y:58%;--d:0.3s;--u:1.4rem"></i><i class="surat-hati" style="--x:8%;--y:-6%;--d:1.8s;--u:0.9rem"></i><i class="surat-hati" style="--x:88%;--y:-5%;--d:0.9s;--u:1.1rem"></i><i class="surat-hati" style="--x:50%;--y:104%;--d:1.5s;--u:1.0rem"></i>
+                <button class="surat-tutup" id="surat-tutup" type="button" aria-label="Tutup surat">&times;</button>
+              </div>
+            </dialog>
           </article>
 
           <!-- Buket -->
@@ -497,20 +512,48 @@ i hope life gets easier for you this year. semoga semua hal yang lagi lo usahain
 
     perbaruiRepeat();
 
-    document.querySelectorAll(".amplop").forEach((amplop) => {
-      const isiSurat = document.getElementById(amplop.getAttribute("aria-controls"));
-      const areaSurat = amplop.closest(".surat-interaktif");
-      const petunjukSurat = amplop.querySelector(".amplop-petunjuk");
+    const amplopPaket = document.getElementById("amplop-paket");
+    const areaSurat = document.getElementById("surat-paket");
+    const dialogSurat = document.getElementById("surat-dialog");
+    const miringSurat = dialogSurat.querySelector(".surat-miring");
+    const petunjukSurat = amplopPaket.querySelector(".amplop-petunjuk");
 
-      amplop.addEventListener("click", () => {
-        const suratTerbuka = amplop.getAttribute("aria-expanded") !== "true";
-        amplop.setAttribute("aria-expanded", String(suratTerbuka));
-        amplop.setAttribute("aria-label", suratTerbuka ? "Tutup surat" : "Buka surat");
-        isiSurat.setAttribute("aria-hidden", String(!suratTerbuka));
-        areaSurat.classList.toggle("surat-terbuka", suratTerbuka);
-        petunjukSurat.textContent = suratTerbuka ? "Tap to close" : "Tap to open";
-      });
+    amplopPaket.addEventListener("click", () => {
+      areaSurat.classList.add("surat-terbuka");
+      petunjukSurat.textContent = "Opening...";
+      setTimeout(() => dialogSurat.showModal(), 380);
     });
+
+    function tutupSurat() {
+      dialogSurat.classList.add("menutup");
+      setTimeout(() => {
+        dialogSurat.close();
+        dialogSurat.classList.remove("menutup");
+        areaSurat.classList.remove("surat-terbuka");
+        petunjukSurat.textContent = "Tap to open";
+        amplopPaket.focus();
+      }, 260);
+    }
+
+    document.getElementById("surat-tutup").addEventListener("click", tutupSurat);
+    dialogSurat.addEventListener("cancel", (e) => { e.preventDefault(); tutupSurat(); });
+    dialogSurat.addEventListener("click", (e) => { if (e.target === dialogSurat) tutupSurat(); });
+
+    // Efek miring 3D mengikuti kursor (hanya mouse)
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      dialogSurat.addEventListener("pointermove", (e) => {
+        if (e.pointerType !== "mouse") return;
+        const b = dialogSurat.getBoundingClientRect();
+        const x = (e.clientX - b.left) / b.width - .5;
+        const y = (e.clientY - b.top) / b.height - .5;
+        miringSurat.style.setProperty("--rx", `${(-y * 7).toFixed(2)}deg`);
+        miringSurat.style.setProperty("--ry", `${(x * 9).toFixed(2)}deg`);
+      });
+      dialogSurat.addEventListener("pointerleave", () => {
+        miringSurat.style.setProperty("--rx", "0deg");
+        miringSurat.style.setProperty("--ry", "0deg");
+      });
+    }
 
     const tombolFoto = document.querySelectorAll(".foto-klik");
     const dialogFoto = document.getElementById("foto-dialog");
